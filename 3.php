@@ -4,10 +4,10 @@
 	   $t2 = "Heslo";
 	   $t4 = "Přihlásit";
 	   $t5 = "Jméno";
-
-
-
-
+   
+   
+	 
+	 
    echo "<div class=\"panel panel-primary\">";
 	echo "<div class=\"panel-heading\"> ";
 	echo "<h3 class=\"panel-title\">$t1</h3>";
@@ -17,7 +17,7 @@
 
 	 echo "<div class=\"form-group\"> ";
 	  echo "<label for=\"jmeno\">Jméno</label>";
-	  echo "<input type=\"jmeno\" class=\"form-control\" id=\"jmeno\" name=\"jmeno\"   placeholder=\"$t5\"> ";
+	  echo "<input type=\"text\" class=\"form-control\" id=\"jmeno\" name=\"jmeno\"   placeholder=\"$t5\"> ";
      echo "</div>";
 	 echo "<div class=\"form-group\">";
 	  echo "<label for=\"heslo\">$t2</label>";
@@ -27,15 +27,17 @@
 	 echo "</form>";
 	echo "</div>";
    echo "</div>";
-
-
-require("../CONNECT/CONNECT.php");
-
+  
+  
+require("../CONNECT/CONNECT.php"); 
+  
   $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
+  $databaze->set_charset("utf8");
   if ($databaze->connect_errno){
     printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
     exit();
   }
+
 
 if (isset($_REQUEST['prihlasit'])){
 
@@ -48,8 +50,8 @@ if (isset($_REQUEST['prihlasit'])){
     if ($tabulka->num_rows==0)
    {  $id_uzivatele=" ";
    echo "Musíte se registrovat";}
-
-
+    
+    
      While($radek=$tabulka->fetch_object())
    {
     echo"$radek->jmeno, jste úspěšně přihlášen.";
@@ -58,46 +60,46 @@ if (isset($_REQUEST['prihlasit'])){
 
 
   $_SESSION['jmeno']="$jmeno";
-  $_SESSION['id']=$id_uzivatele;
+  $_SESSION['id']=$id_uzivatele; 
   $_SESSION['login']=true;
 
   if ($id_uzivatele=" "){
   $_SESSION['id']==" ";
     }
-
+  
   }
   else {
     echo "Jméno a heslo nebylo zadané, přihlášení neproběhlo<br><br>";
     exit;
    }
 
-
-
-
-}
-
-
-
-
-
-
- ?>
+  
+ 
+            
+}  
+  
+  
+  
+  
+  
+  
+ ?> 
 
    <!--
   <div class="row">
   <div class="col-sm-7">
      <img src="kapr_obecny.gif" alt="kapr_obecny.gif" title="Kapr obecny" height="242" width="519">
-   </div>
+   </div> 
    <div class="col-sm-">
    <br>
-
+   
   <div class="panel-group">
   <div class="panel panel-primary">
     <div class="panel-body">Přihlášení</div>
   </div>
   <div class="panel panel-primary">
   <div class="panel-body">
-
+   
    <form>
    <div class="form-group">
     <label for="email">Email address:</label>
@@ -113,11 +115,11 @@ if (isset($_REQUEST['prihlasit'])){
   <button type="submit" class="btn btn-default">Submit</button>
    </form>
    </div>
-
+   
    </div>
   </div>
  </div>
-
-
-  </div>
+ 
+   
+  </div> 
      -->
