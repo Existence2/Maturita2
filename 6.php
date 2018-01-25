@@ -20,7 +20,7 @@
  echo"   <input type=\"number\" class=\"form-control\" id=\"vaha\"> ";
  echo" </div>    ";
   echo" <div class=\"form-group\"> ";
- echo"   <label for=\"datum\">Zadejte datum (rok, měsíc, den, např. 2017-06-15) vašeho úlovku</label>  ";
+ echo"   <label for=\"datum\">Zadejte datum vašeho úlovku</label>  ";
  echo"   <input type=\"date\" class=\"form-control\" id=\"datum\"> ";
  echo" </div>    ";
 
@@ -28,6 +28,19 @@
  echo"   <label for=\"lov\">Zadejte způsob lovu vašeho úlovku</label>  ";
  echo"   <input type=\"text\" class=\"form-control\" id=\"lov\"> ";
  echo" </div>    ";
+ 
+    
+    echo" <div class=\"form-group\"> ";
+ echo"   <label for=\"ryba\">Vyberte rybu </label>  ";
+ echo"   <input type=\"text\" class=\"form-control\" id=\"ryba\"> ";
+ echo" </div>    ";
+ 
+ 
+    echo" <div class=\"form-group\"> ";
+ echo"   <label for=\"revir\">Vyberte revír </label>  ";
+ echo"   <input type=\"text\" class=\"form-control\" id=\"revir\"> ";
+ echo" </div>    ";
+ 
  echo" <button type=\"submit\" class=\"btn btn-primary\">Submit</button> ";
 echo" </form>  ";
   echo "</div>";        

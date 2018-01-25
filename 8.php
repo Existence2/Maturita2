@@ -14,7 +14,7 @@ function showState(str) {
                 document.getElementById("txtHint").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","getfish3.php?q="+str,true);
+        xmlhttp.open("GET","getrevir.php?q="+str,true);
         xmlhttp.send();
     }
 }
@@ -24,7 +24,7 @@ function showState(str) {
 
 <form>
 <select name="states" onChange="showState(this.value)">
- <option value="">Vyber rybu</option>
+ <option value="">Vyber revír</option>
   
 <?php
   require("../CONNECT/CONNECT.php"); 
@@ -35,8 +35,8 @@ function showState(str) {
        exit();
             }
 
-mysqli_select_db($databaze,"Druh");
-$sql="SELECT * from Druh group by nazev";
+mysqli_select_db($databaze,"Revir");
+$sql="SELECT * from Revir group by nazev";
 $result = mysqli_query($databaze,$sql);
   
 while($row = mysqli_fetch_array($result)) {
@@ -48,7 +48,7 @@ while($row = mysqli_fetch_array($result)) {
 </select>
 </form>
 <br>
-<div id="txtHint"><b>Zde budou ryby</b></div>
+<div id="txtHint"><b>Zde budou revíry</b></div>
 
 </body>
 </html> 

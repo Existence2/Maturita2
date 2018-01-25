@@ -21,6 +21,7 @@ echo"     <label for=\"reheslo\">Znovu heslo:</label>       " ;
 echo"     <input type=\"password\" class=\"form-control\" name=\"reheslo\" id=\"reheslo\">    ";
 echo"   </div>    ";
 echo"   </div>   ";
+
 echo"   <button type=\"submit\" name=\"registrace\" class=\"btn btn-warning\">Potvrd</button>      " ;
 echo"    </form> ";
 echo"    </div>   ";

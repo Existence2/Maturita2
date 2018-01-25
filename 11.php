@@ -45,7 +45,7 @@
 
   echo" <div class=\"form-group\"> ";
  echo"   <label for=\"popis\">Zadejte popis ryby  </label>  ";
- echo"   <textarea class=\"form-control\" rows=\"5\" class=\"form-control\" id=\"popis\"> </textarea> ";
+ echo"   <textarea class=\"form-control\" rows=\"5\" name=\"popis\" class=\"form-control\" id=\"popis\"> </textarea> ";
  echo" </div>    ";
 
  
@@ -76,7 +76,7 @@ echo" </form>  ";
                     $potrava= $_REQUEST['potrava'];
                     $navnada= $_REQUEST['navnada'];
                     $popis= $_REQUEST['popis'];
-                 
+                    
                     $prikaz="SELECT * from Druh";
                     $vysledek = $databaze->query($prikaz);
                     While($radek=$vysledek->fetch_object())
@@ -91,10 +91,16 @@ echo" </form>  ";
                   
                     }
                     
+                    
+                    
+                    
+                    
                    $prikaz="INSERT into Druh VALUES('Null',?,?,?,?,?,?,?,?)";
                    $vysledek=$databaze->prepare($prikaz);
                 	 $vysledek->bind_param("ssssssss",$nazev,$rad,$celed,$zacatek,$konec,$potrava,$navnada,$popis);
-                	 $vysledek->execute();      
+                	 $vysledek->execute();
+                   
+                  
                    }  
            
                
@@ -108,3 +114,4 @@ echo" </form>  ";
     exit();
     }
    
+   ///var_dump()

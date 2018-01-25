@@ -22,7 +22,38 @@
       <li><a href="novy.php?s=2">Registrace</a></li>
       <li><a href="novy.php?s=3">Přihlášení</a></li>
       <li><a href="novy.php?s=4">Články</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=5">Úlovky
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="novy.php?s=5"> Úlovky</a></li>
+          <li><a href="novy.php?s=6"> Vložit úlovek</a></li>
+        </ul>
+      </li>
+      
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=8">Revíry
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="novy.php?s=8"> Revíry</a></li>
+          <li><a href="novy.php?s=9"> Vložit revír</a></li>
+        </ul>
+      </li>
+      
+         <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=10">Ryby
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="novy.php?s=10"> Ryby</a></li>
+          <li><a href="novy.php?s=11"> Vložit rybu</a></li>
+        </ul>
+      </li>
     </ul>
+       <ul class="nav navbar-nav navbar-right">
+      <li><a href="novy.php?s=7"><span class="glyphicon glyphicon-user"></span> Odhlásit se</a></li>
+    <!--  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>      !-->
+    </ul>
+    
   </div>
 </nav>
  
