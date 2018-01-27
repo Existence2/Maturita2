@@ -1,7 +1,7 @@
  <html>
 <head>
 <script>
-function showState(str) {
+function ukazRevir(str) {
     if (str == "") {
         document.getElementById("txtHint").innerHTML = "";
         return;
@@ -23,7 +23,7 @@ function showState(str) {
 <body>
 
 <form>
-<select name="states" onChange="showState(this.value)">
+<select name="revir" onChange="ukazRevir(this.value)">
  <option value="">Vyber revír</option>
   
 <?php

@@ -62,7 +62,7 @@ if (isset($_REQUEST['prihlasit'])){
   $_SESSION['jmeno']="$jmeno";
   $_SESSION['id']=$id_uzivatele; 
   $_SESSION['login']=true;
-
+ 
   if ($id_uzivatele=" "){
   $_SESSION['id']==" ";
     }
