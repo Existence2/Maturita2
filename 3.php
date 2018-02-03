@@ -78,8 +78,44 @@ if (isset($_REQUEST['prihlasit'])){
             
 }  
   
+/*function prihlaseni($a, $b){
+    
+  if($a <> "" and  $b <>"")
+   {$jmeno=$a;
+    $heslo=$b;
+    $heslo=md5($heslo);
+    $prikaz = "SELECT idUzivatel, jmeno, heslo FROM Uzivatel WHERE jmeno = '$jmeno' AND heslo = '$heslo'";
+    $tabulka=$databaze->query($prikaz);
+    if ($tabulka->num_rows==0)
+   {  $id_uzivatele=" ";
+   echo "Musíte se registrovat";}
+    
+    
+     While($radek=$tabulka->fetch_object())
+   {
+    echo"$radek->jmeno, jste úspěšně přihlášen.";
+     $id_uzivatele=$radek->idUzivatel;
+   }
+
+
+  $_SESSION['jmeno']="$jmeno";
+  $_SESSION['id']=$id_uzivatele; 
+  $_SESSION['login']=true;
+ 
+  if ($id_uzivatele=" "){
+  $_SESSION['id']==" ";
+    }
   
+  }
+  else {
+    echo "Jméno a heslo nebylo zadané, přihlášení neproběhlo<br><br>";
+    exit;
+   }
+
   
+
+} */
+ 
   
   
   

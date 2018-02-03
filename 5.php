@@ -33,14 +33,80 @@ header('Content-Type: text/html; charset=utf-8');
   printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
        exit();
             }
-mysqli_select_db($databaze,"Ulovek");
+//mysqli_select_db($databaze,"Ulovek");
 $q=$_SESSION['id'];
+/*
 $sql="SELECT * FROM Ulovek WHERE Uzivatel_idUzivatel = '".$q."'";
 $sql2="SELECT Druh.nazev FROM Druh, Ulovek WHERE Ulovek.Druh_idDruh = Druh.idDruh";
 $sql3="SELECT Revir.nazev FROM Revir, Ulovek WHERE Ulovek.Revir_idRevir = Revir.idRevir";
 $result = mysqli_query($databaze,$sql);
 $result2 = mysqli_query($databaze,$sql2);
-$result3 = mysqli_query($databaze,$sql3);  
+$result3 = mysqli_query($databaze,$sql3);
+  */
+
+
+
+if (isset($_REQUEST["id"]))
+{
+  include("60.php");
+}
+else
+{
+  
+  
+  if (isset($_REQUEST['id1'])){
+         if($_REQUEST['rozmer'] <> "" and  $_REQUEST['vaha'] <>"" and  $_REQUEST['datum'] <>"" and $_REQUEST['lov'] <>""){       
+                    $rozmer= $_REQUEST['rozmer'];
+                		$vaha= $_REQUEST['vaha'];
+                    $lov= $_REQUEST['lov'];
+                    $druh= $_REQUEST['ryba'];
+                    $revir= $_REQUEST['revir'];
+                    $datum= $_REQUEST['datum'];
+                    $id =   $_REQUEST['id1'];
+                    
+                    $iduzivatele =  $_SESSION['id'];
+                    
+                    $sql = "UPDATE Ulovek SET
+                      rozmer = '$rozmer',
+                      vaha='$vaha',
+                      datum = '$datum',
+                      zpusob_lovu ='$lov',
+                      Revir_idRevir = '$revir',
+                      Druh_idDruh = '$druh',
+                      Uzivatel_idUzivatel = '$iduzivatele'  
+                       WHERE idUlovek='$id'";
+                       
+                   
+                       
+                    if (mysqli_query($databaze, $sql)) {
+                                 echo "Váš úlovek byl úspěšně aktualizován";
+                      } else {
+                            echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
+                      } 
+                           
+                //   vaha, datum, zpusob_lovu, Revir_idRevir, Druh_idDruh, Uzivatel_idUzivatel) VALUES ('$rozmer','$vaha','$datum','$lov','$revir','$druh','$iduzivatele' )
+                   }  
+                   
+  
+               
+         else{
+           echo("nezadal jste některý z údajů");
+         } 
+         }
+ 
+ 
+   $sql="SELECT Ulovek.*,Druh.nazev as dnazev, Revir.nazev as rnazev FROM Ulovek 
+  left join Druh on Ulovek.Druh_idDruh = Druh.idDruh
+  left join Revir on Ulovek.Revir_idRevir = Revir.idRevir  	   	 
+  WHERE Uzivatel_idUzivatel = '".$q."'"
+  ;
+  $tabulka=$databaze->query($sql); 
+
+ 
+    
+  
+  
+  
 echo "<table class=\"table table-bordered\">";
 echo " <thead>";
 echo "<tr>";
@@ -52,22 +118,29 @@ echo "<th>Ryba</th>";
 echo "<th>Revír</th>";
 echo "</tr>";
 echo "   </thead>";
-while($row = mysqli_fetch_array($result)) {
-     echo "<tr>";
-    echo "<td>" . $row['rozmer'] . "</td>";
-    echo "<td>" . $row['vaha'] . "</td>";
-    echo "<td>" . $row['datum'] . "</td>";
-     echo "<td>" . $row['zpusob_lovu'] . "</td>";
-    $row = mysqli_fetch_array($result2); 
-             echo "<td>" . $row['nazev']. "</td>";
-             
-     $row = mysqli_fetch_array($result3); 
-             echo "<td>" . $row['nazev']. "</td>";          
-     
+
+while($row=$tabulka->fetch_object()) {
+ 
+    echo "<tr>";
+    echo "<td>";
+     echo "<a href=novy.php?id=" .$row->idUlovek ." style=cursor:pointer;>";
+     echo $row->rozmer; 
+    echo "</a>"; 
+    echo "</td>";    
+    
+    echo "<td>" . $row->vaha . "</td>";
+    echo "<td>" . $row->datum . "</td>";
+    echo "<td>" . $row->zpusob_lovu . "</td>";
+    echo "<td>" . $row->dnazev. "</td>";
+    echo "<td>" . $row->rnazev. "</td>";          
+    
     echo "</tr>";
+  
 }
 echo "</table>";
-mysqli_close($databaze);
+
+}
+//mysqli_close($databaze);
 
 
 ?>
