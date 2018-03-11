@@ -25,6 +25,15 @@ th {text-align: left;}
 <body>
 
 <?php
+ if ($_SESSION['login']== false)
+ {
+  echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci s úlovky musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;
+  
+ }
+
 header('Content-Type: text/html; charset=utf-8');
  require("../CONNECT/CONNECT.php"); 
   $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
@@ -35,6 +44,27 @@ header('Content-Type: text/html; charset=utf-8');
             }
 //mysqli_select_db($databaze,"Ulovek");
 $q=$_SESSION['id'];
+
+
+if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
+    {
+         $idd = $_REQUEST['idd'];
+         
+              $sql = "DELETE FROM Ulovek 
+                      WHERE idUlovek='$idd'";
+                      
+               
+                    if (mysqli_query($databaze, $sql)) {
+                                 echo "Váš úlovek byl úspěšně smazán";
+                      } else {
+                            echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
+                      } 
+                           
+                      
+         
+    } 
+
+
 /*
 $sql="SELECT * FROM Ulovek WHERE Uzivatel_idUzivatel = '".$q."'";
 $sql2="SELECT Druh.nazev FROM Druh, Ulovek WHERE Ulovek.Druh_idDruh = Druh.idDruh";
@@ -134,6 +164,18 @@ while($row=$tabulka->fetch_object()) {
     echo "<td>" . $row->dnazev. "</td>";
     echo "<td>" . $row->rnazev. "</td>";          
     
+     echo "<td>";
+    
+    $jmenoformulare = "DEL" .$row->idUlovek;
+    echo "<form name=$jmenoformulare method=post >";
+    echo "<input type=hidden name=idd value = $row->idUlovek>";
+    echo "<input type=\"checkbox\" id=\"smazej\" name=\"smazej\" >";
+    echo "</form>"; 
+    echo "</td>";
+    echo "<td>";
+    echo "<span class=\"glyphicon glyphicon-trash\" style=cursor:pointer; onclick = self.document.forms.$jmenoformulare.submit() >";
+        
+    echo "</td>";
     echo "</tr>";
   
 }

@@ -3,12 +3,17 @@
 
  echo "<div class=row>";
  
-  if($_SESSION['login']==false){
-     echo "<div class=col-md-5>"; 
-      echo "Nejste přihlášený";
-      exit();
-    }
+ 
+ if ($_SESSION['login']== false)
+ {
+  echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci se rybami musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;
   
+ }
+
+    // id je id radku v tabulce k editaci
   if (isset($_REQUEST["id"]))
       $id = $_REQUEST["id"];
   else
@@ -28,13 +33,13 @@
 		 if (substr($_FILES["file"]["name"],$i,1) == "." ) $pozice = strlen($_FILES["file"]["name"])- $i;
 	 }
  
-
+	
 	 
    $pozice = ($pozice) * -1 ;
 	 $ext =substr($_FILES["file"]["name"], $pozice); 
 	 
 	  
-	 $dir = "obr/ulovky/";  
+	 $dir = "obr/ryba/";  
  	 
 	 $jmeno = $id;
 	 $jmeno .=$ext;  
@@ -58,7 +63,7 @@
  
    
   echo "<br>";
-  $jm = "obr/ulovky/";
+  $jm = "obr/ryba/";
   $jm .=$id;
    
   if (is_file("$jm.jpg"))
@@ -91,40 +96,53 @@
     exit();
   }   
   
-   $sql="SELECT * FROM Ulovek WHERE idUlovek = '".$id."'";
+   $sql="SELECT * FROM Druh WHERE idDruh = '".$id."'";
    $vysledek = mysqli_query($databaze,$sql);
    $radek= mysqli_fetch_array($vysledek); 
  
        
-    
-  
+
   echo "<div class=col-md-5 >";  
 
-  echo"   <form>   ";
-  echo "<input type=hidden name=id1 value= $id>";    
+ echo "<form > ";
+echo "<input type=hidden name=id1 value= $id>"; 
  echo" <div class=\"form-group\"> ";
- echo"   <label for=\"rozmer\">Zadejte rozměr vašeho úlovku (cm)</label>  ";
-  echo"   <input type=\"number\" class=\"form-control\" name=\"rozmer\" id=\"rozmer\" value=\"" .$radek['rozmer'] ."\">  ";
-  echo" </div>  ";
+ echo"   <label for=\"nazev\">Zadejte název druhu ryby </label>  ";
+ echo"   <input type=\"text\" name=\"nazev\" class=\"form-control\" id=\"nazev\"  value=\"" .$radek['nazev'] ."\">  ";
+ echo" </div>  ";
  echo" <div class=\"form-group\"> ";
- echo"   <label for=\"vaha\">Zadejte váhu vašeho úlovku v kg (dvě desetinná místa) </label>  ";
- echo"   <input type=\"number\" class=\"form-control\" name=\"vaha\" id=\"vaha\" value=\"" .$radek['vaha'] ."\">  ";
+ echo"   <label for=\"rad\">Zadejte k jakému řádu ryba patří </label>  ";
+ echo"   <input type=\"text\" name=\"rad\" class=\"form-control\" id=\"rad\" value=\"" .$radek['rad'] ."\">";
  echo" </div>    ";
   echo" <div class=\"form-group\"> ";
- echo"   <label for=\"datum\">Zadejte datum vašeho úlovku</label>  ";
- echo"   <input type=\"date\" class=\"form-control\" name=\"datum\" id=\"datum\" value=\"" .$radek['datum'] ."\">  ";
+ echo"   <label for=\"celed\">Zadejte k jaké čeledi  ryba patří </label> ";
+ echo"   <input type=\"text\"  name=\"celed\" class=\"form-control\" id=\"celed\" value=\"" .$radek['celed'] ."\">";
  echo" </div>    ";
-
     echo" <div class=\"form-group\"> ";
- echo"   <label for=\"lov\">Zadejte způsob lovu vašeho úlovku</label>  ";
- echo"   <input type=\"text\" class=\"form-control\"  name=\"lov\" id=\"lov\" value=\"" .$radek['zpusob_lovu'] ."\">  ";
+ echo"   <label for=\"zacatek\">Zadejte měsíc začátku doby hájení </label>  ";
+ echo"   <input type=\"text\" name=\"zacatek\" class=\"form-control\" id=\"zacatek\" value=\"" .$radek['zacatek_hajeni'] ."\">";
  echo" </div>    ";
  
-     
-    echo" <div class=\"form-group\"> ";
- echo"   <label for=\"ryba\">Vyberte rybu </label>  ";
- 	
-		echo "<select name=\"ryba\" id=\"ryba\" class=\"form-control\" size=1 >";
+ echo" <div class=\"form-group\"> ";
+ echo"   <label for=\"konec\">Zadejte měsíc konce doby hájení </label>  ";
+ echo"   <input type=\"text\" name=\"konec\" class=\"form-control\" id=\"konec\" value=\"" .$radek['konec_hajeni'] ."\">";
+ echo" </div>    ";
+ 
+  echo" <div class=\"form-group\"> ";
+ echo"   <label for=\"potrava\">Zadejt přirozenou potravu, kterou se daný druh ryby živí </label>  ";
+ echo"   <input type=\"text\" name=\"potrava\" class=\"form-control\" id=\"potrava\" value=\"" .$radek['potrava'] ."\">";
+ echo" </div>    ";
+ 
+   echo" <div class=\"form-group\"> ";
+ echo"   <label for=\"navnada\">Zadejte vhodnou návnadu  </label>  ";
+ echo"   <input type=\"text\" name=\"navnada\" class=\"form-control\" id=\"navnada\" value=\"" .$radek['navnada'] ."\">";
+ echo" </div>    ";
+
+  echo" <div class=\"form-group\"> ";
+ echo"   <label for=\"popis\">Zadejte popis ryby  </label>  ";
+ echo"   <textarea class=\"form-control\" rows=\"5\" name=\"popis\" class=\"form-control\" id=\"popis\" value=\"" .$radek['popis'] ."\"> </textarea> ";
+ echo" </div>    ";
+      
      
         
 require("../CONNECT/CONNECT.php");  
@@ -135,73 +153,8 @@ require("../CONNECT/CONNECT.php");
     exit();
   }     
       
-
-     
-     
-  $prikaz = "SELECT idDruh, nazev  FROM Druh ";
- $tabulka=$databaze->query($prikaz); 
- if ($tabulka->num_rows==0)
-   {  
-   echo "Je nutné vložit do sytému aspon 1 druh ryby";
-   exit();}
-    
-    
-     While($radek1=$tabulka->fetch_object())
-   {
-             
-           echo "<option value = '";
-           $druh=$radek1->idDruh; 
-            echo $druh;
-            if ($radek1->idDruh == $radek['Druh_idDruh'] ) 
-              echo "' selected >";
-            else  
-              echo "' >";
-            echo $radek1->nazev;
-			     echo "</option>";	
-    
-   }  
-     echo "</select>";					 
- 
- echo" </div>    ";
- 
-     
-   
-    
-    echo" <div class=\"form-group\"> ";
- echo"   <label for=\"revir\">Vyberte revír </label>  ";
-		echo "<select name=\"revir\" id=\"revir\" class=\"form-control\" size=1 >";
-     
-     
-     
-     
- $prikaz = "SELECT idRevir, nazev  FROM Revir ";
- $tabulka=$databaze->query($prikaz); 
- if ($tabulka->num_rows==0)
-   {  
-   echo "Je nutné vložit do sytému aspoň 1 druh ryby";
-   exit();}
- 
-    
-    While($radek2=$tabulka->fetch_object())
-   {
-             
-           echo "<option value = '";
-             $revir=$radek2->idRevir;
-             echo $revir;
-            if ($radek2->idRevir == $radek['Revir_idRevir'] ) 
-              echo "' selected >";
-            else  
-              echo "' >"; 
-            
-            echo $radek2->nazev;
-            
-			     echo "</option>";	
-    
-   }  
-     echo "</select>";
-
-     
- echo" </div>    ";
+       
+ 				 
  
  echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Potvrď</button> ";
 echo" </form>  ";
@@ -217,15 +170,14 @@ echo" </form>  ";
  
         
         
-    if($_SESSION['login']==false){
-      echo "Nejste přihlášený";
-      exit();
-    }
+    
     
     echo "<br><br>";
-    echo "<form action=novy.php?s=5>";
+    echo "<form action=novy.php?s=10>";
     echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Návrat zpět</button> ";
     echo "</form>";
     
     
     
+
+ 

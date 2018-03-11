@@ -21,7 +21,14 @@
       <li class="active"><a href="novy.php?s=1">Home</a></li>
       <li><a href="novy.php?s=2">Registrace</a></li>
       <li><a href="novy.php?s=3">Přihlášení</a></li>
-      <li><a href="novy.php?s=4">Články</a></li>
+       <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=4">Články
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="novy.php?s=4">Články</a></li>
+          <li><a href="novy.php?s=13"> Vložit článek</a></li>
+        </ul>
+      </li>
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=5">Úlovky
         <span class="caret"></span></a>

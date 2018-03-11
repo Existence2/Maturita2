@@ -3,12 +3,15 @@
 
  echo "<div class=row>";
  
-  if($_SESSION['login']==false){
-     echo "<div class=col-md-5>"; 
-      echo "Nejste přihlášený";
-      exit();
-    }
+ if ($_SESSION['login']== false)
+ {
+  echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci s revíry musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;
   
+ }
+    // id je id radku v tabulce k editaci
   if (isset($_REQUEST["id"]))
       $id = $_REQUEST["id"];
   else
@@ -29,12 +32,11 @@
 	 }
  
 
-	 
    $pozice = ($pozice) * -1 ;
 	 $ext =substr($_FILES["file"]["name"], $pozice); 
 	 
 	  
-	 $dir = "obr/ulovky/";  
+	 $dir = "obr/reviry/";  
  	 
 	 $jmeno = $id;
 	 $jmeno .=$ext;  
@@ -58,7 +60,7 @@
  
    
   echo "<br>";
-  $jm = "obr/ulovky/";
+  $jm = "obr/reviry/";
   $jm .=$id;
    
   if (is_file("$jm.jpg"))
@@ -91,40 +93,38 @@
     exit();
   }   
   
-   $sql="SELECT * FROM Ulovek WHERE idUlovek = '".$id."'";
+   $sql="SELECT * FROM Revir WHERE idRevir = '".$id."'";
    $vysledek = mysqli_query($databaze,$sql);
    $radek= mysqli_fetch_array($vysledek); 
  
        
-    
-  
+
   echo "<div class=col-md-5 >";  
 
-  echo"   <form>   ";
-  echo "<input type=hidden name=id1 value= $id>";    
+ echo "<form > ";
+echo "<input type=hidden name=id1 value= $id>"; 
  echo" <div class=\"form-group\"> ";
- echo"   <label for=\"rozmer\">Zadejte rozměr vašeho úlovku (cm)</label>  ";
-  echo"   <input type=\"number\" class=\"form-control\" name=\"rozmer\" id=\"rozmer\" value=\"" .$radek['rozmer'] ."\">  ";
-  echo" </div>  ";
+ echo"   <label for=\"nazev\">Zadejte název revíru </label>  ";
+ echo"   <input type=\"text\" name=\"nazev\" class=\"form-control\" id=\"nazev\" value=\"" .$radek['nazev'] ."\">  ";
+ echo" </div>  ";
  echo" <div class=\"form-group\"> ";
- echo"   <label for=\"vaha\">Zadejte váhu vašeho úlovku v kg (dvě desetinná místa) </label>  ";
- echo"   <input type=\"number\" class=\"form-control\" name=\"vaha\" id=\"vaha\" value=\"" .$radek['vaha'] ."\">  ";
+ echo"   <label for=\"lokalita\">Zadejte, v jakém kraji se revír nachází </label>  ";
+ echo"   <input type=\"text\" name=\"lokalita\" class=\"form-control\" id=\"lokalita\" value=\"" .$radek['kraj'] ."\">  ";
  echo" </div>    ";
   echo" <div class=\"form-group\"> ";
- echo"   <label for=\"datum\">Zadejte datum vašeho úlovku</label>  ";
- echo"   <input type=\"date\" class=\"form-control\" name=\"datum\" id=\"datum\" value=\"" .$radek['datum'] ."\">  ";
+ echo"   <label for=\"popis\">Zadejte popis vašeho revíru </label> ";
+ echo"   <input type=\"text\"  name=\"popis\" class=\"form-control\" id=\"popis\" value=\"" .$radek['popis'] ."\">  ";
  echo" </div>    ";
-
     echo" <div class=\"form-group\"> ";
- echo"   <label for=\"lov\">Zadejte způsob lovu vašeho úlovku</label>  ";
- echo"   <input type=\"text\" class=\"form-control\"  name=\"lov\" id=\"lov\" value=\"" .$radek['zpusob_lovu'] ."\">  ";
+ echo"   <label for=\"rozmer\">Zadejte rozměr vašeho revíru v kilometrech (povolena dvě desetinná místa) </label>  ";
+ echo"   <input type=\"number\" name=\"rozmer\" class=\"form-control\" id=\"rozmer\"  value=\"" .$radek['velikost'] ."\">  ";
  echo" </div>    ";
  
-     
-    echo" <div class=\"form-group\"> ";
- echo"   <label for=\"ryba\">Vyberte rybu </label>  ";
- 	
-		echo "<select name=\"ryba\" id=\"ryba\" class=\"form-control\" size=1 >";
+ echo" <div class=\"form-group\"> ";
+ echo"   <label for=\"svaz\">Zadejte k jakému svazu revír patří </label>  ";
+ echo"   <input type=\"text\" name=\"svaz\" class=\"form-control\" id=\"svaz\" value=\"" .$radek['svaz'] ."\">  ";
+ echo" </div>    ";
+      
      
         
 require("../CONNECT/CONNECT.php");  
@@ -135,73 +135,8 @@ require("../CONNECT/CONNECT.php");
     exit();
   }     
       
-
-     
-     
-  $prikaz = "SELECT idDruh, nazev  FROM Druh ";
- $tabulka=$databaze->query($prikaz); 
- if ($tabulka->num_rows==0)
-   {  
-   echo "Je nutné vložit do sytému aspon 1 druh ryby";
-   exit();}
-    
-    
-     While($radek1=$tabulka->fetch_object())
-   {
-             
-           echo "<option value = '";
-           $druh=$radek1->idDruh; 
-            echo $druh;
-            if ($radek1->idDruh == $radek['Druh_idDruh'] ) 
-              echo "' selected >";
-            else  
-              echo "' >";
-            echo $radek1->nazev;
-			     echo "</option>";	
-    
-   }  
-     echo "</select>";					 
- 
- echo" </div>    ";
- 
-     
-   
-    
-    echo" <div class=\"form-group\"> ";
- echo"   <label for=\"revir\">Vyberte revír </label>  ";
-		echo "<select name=\"revir\" id=\"revir\" class=\"form-control\" size=1 >";
-     
-     
-     
-     
- $prikaz = "SELECT idRevir, nazev  FROM Revir ";
- $tabulka=$databaze->query($prikaz); 
- if ($tabulka->num_rows==0)
-   {  
-   echo "Je nutné vložit do sytému aspoň 1 druh ryby";
-   exit();}
- 
-    
-    While($radek2=$tabulka->fetch_object())
-   {
-             
-           echo "<option value = '";
-             $revir=$radek2->idRevir;
-             echo $revir;
-            if ($radek2->idRevir == $radek['Revir_idRevir'] ) 
-              echo "' selected >";
-            else  
-              echo "' >"; 
-            
-            echo $radek2->nazev;
-            
-			     echo "</option>";	
-    
-   }  
-     echo "</select>";
-
-     
- echo" </div>    ";
+       
+ 				 
  
  echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Potvrď</button> ";
 echo" </form>  ";
@@ -217,15 +152,11 @@ echo" </form>  ";
  
         
         
-    if($_SESSION['login']==false){
-      echo "Nejste přihlášený";
-      exit();
-    }
+    
     
     echo "<br><br>";
-    echo "<form action=novy.php?s=5>";
+    echo "<form action=novy.php?s=8>";
     echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Návrat zpět</button> ";
     echo "</form>";
-    
     
     
