@@ -28,72 +28,83 @@
   
 
 
-require("../CONNECT/CONNECT.php");
-
-
-  
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-  $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-    printf("Připojení spadlo: %s\n", $databaze->connect_error);
-    exit();
-  }
+require_once("MySQL.php"); 
 
 if (isset($_REQUEST['registrace']))
 {
    
   if($_REQUEST['heslo'] <> "" and  $_REQUEST['jmeno'] <>""){
   
-  	$jmeno= $_REQUEST['jmeno'];
-		$heslo= $_REQUEST['heslo'];
-    $reheslo= $_REQUEST['reheslo'];
+  	$jmeno= htmlspecialchars($_REQUEST['jmeno']);
+		$heslo= htmlspecialchars($_REQUEST['heslo']);
+    $reheslo= htmlspecialchars($_REQUEST['reheslo']);
+
+if (ereg("([A-Za-z0-9])", $jmeno)){
+    
     $pravo= 1;
- 
+    $blokace= 0;
     $prikaz="SELECT * from Uzivatel";
     $vysledek = $databaze->query($prikaz);
    While($radek=$vysledek->fetch_object())
   
    {
     
-    if($radek->jmeno ==$jmeno ){
-      echo "Toto jméno je již obsazené, zvolte prosím jiné. " ;
+    if(htmlspecialchars($radek->jmeno) ==$jmeno ){
+      echo '<div class="alert alert-danger">  
+  <strong>Neprovedeno!</strong> Toto jméno je již obsazené, zvolte prosím jiné. </div>';
       exit();
       }
       
     if ($heslo != $reheslo ){
-     echo "Vaše heslo se neshoduje " ;
+    echo '<div class="alert alert-danger">  
+  <strong>Neprovedeno!</strong> Vaše heslo se neshoduje. </div>';
       exit();
    }
    }
     $heslo=md5($heslo);
-		$prikaz="INSERT into Uzivatel VALUES('Null',?,?,?)";
+		$prikaz="INSERT into Uzivatel VALUES('Null',?,?,?,?)";
     $vysledek=$databaze->prepare($prikaz);
-		$vysledek->bind_param("ssi",$jmeno,$heslo,$pravo);
+		$vysledek->bind_param("ssii",$jmeno,$heslo,$pravo,$blokace);
 		$vysledek->execute();           
 		echo '<div class="alert alert-success">  
-  <strong>Success!</strong> Váš účet byl vytvořen </div>';
+  <strong>Provedeno!</strong> Váš účet byl vytvořen </div>';
   
-    $prikaz = "SELECT idUzivatel, jmeno, heslo FROM Uzivatel WHERE jmeno = '$jmeno' AND heslo = '$heslo'";
+    $prikaz = "SELECT idUzivatel, jmeno, heslo, pravo FROM Uzivatel WHERE jmeno = '$jmeno' AND heslo = '$heslo'";
     $tabulka=$databaze->query($prikaz);
     
      While($radek=$tabulka->fetch_object())
    {
-    echo"$radek->jmeno, jste úspěšně přihlášen.";
+   
+    
+   echo '<div class="alert alert-success">  
+  Jste úspěšně přihlášen </div>';
      $id_uzivatele=$radek->idUzivatel;
+     $pravo=$radek->pravo;
    }
 
 
   $_SESSION['jmeno']="$jmeno";
   $_SESSION['id']=$id_uzivatele; 
   $_SESSION['login']=true;
+  $_SESSION["pravo"]="$pravo";
   
   
   
     }
-   
+    
+else {
+
+ echo '<div class="alert alert-danger">  
+  <strong>Neprovedeno!</strong> Pro jméno mohou být použity pouze malá a velká písmena či číslice. </div>';
+      exit();
+
+}
+ }  
                
    else
-        echo"Jméno a heslo nebylo zadané, registrace neproběhla<br><br>";
+        echo '<div class="alert alert-danger">  
+  <strong>Neprovedeno!</strong> Jméno a heslo nebylo zadáno.</div>';
+  echo"<br><br>";
         exit();
    
  

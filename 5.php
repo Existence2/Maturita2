@@ -5,21 +5,8 @@
   <meta name="generator" content="PSPad editor, www.pspad.com">
   <title></title>
  
-<!--
-Styl oddělený
--->
-<style>
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, td, th {
-    border: 1px solid black;
-    padding: 2px;
-}
-
-th {text-align: left;}
+ <style>
+        {include 'tabulka.css'}
 </style>
 </head>
 <body>
@@ -34,17 +21,9 @@ th {text-align: left;}
   
  }
 
-header('Content-Type: text/html; charset=utf-8');
- require("../CONNECT/CONNECT.php"); 
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-  $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-  printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-       exit();
-            }
-//mysqli_select_db($databaze,"Ulovek");
-$q=$_SESSION['id'];
 
+require_once("MySQL.php"); 
+$q=$_SESSION['id'];
 
 if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
     {
@@ -63,16 +42,6 @@ if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
                       
          
     } 
-
-
-/*
-$sql="SELECT * FROM Ulovek WHERE Uzivatel_idUzivatel = '".$q."'";
-$sql2="SELECT Druh.nazev FROM Druh, Ulovek WHERE Ulovek.Druh_idDruh = Druh.idDruh";
-$sql3="SELECT Revir.nazev FROM Revir, Ulovek WHERE Ulovek.Revir_idRevir = Revir.idRevir";
-$result = mysqli_query($databaze,$sql);
-$result2 = mysqli_query($databaze,$sql2);
-$result3 = mysqli_query($databaze,$sql3);
-  */
 
 
 

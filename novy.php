@@ -20,7 +20,7 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="novy.php?s=1">Home</a></li>
       <li><a href="novy.php?s=2">Registrace</a></li>
-      <li><a href="novy.php?s=3">Přihlášení</a></li>
+
        <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=4">Články
         <span class="caret"></span></a>
@@ -55,11 +55,48 @@
           <li><a href="novy.php?s=11"> Vložit rybu</a></li>
         </ul>
       </li>
-    </ul>
-       <ul class="nav navbar-nav navbar-right">
+      
+    <?php
+    
+     
+  session_start();
+  
+  if (!isset($_SESSION["strana"]))    $_SESSION["strana"]=1;
+  if (!isset($_SESSION["login"]))     $_SESSION["login"]=false;
+  if (!isset($_SESSION["pravo"]))     $_SESSION["pravo"]=0;
+    
+    
+  if($_SESSION["login"]== true){
+    $pravo = $_SESSION['pravo'];
+     if($pravo>1){
+    
+     echo" <li class='dropdown'>";
+     echo"   <a class='dropdown-toggle' data-toggle='dropdown' href='novy.php?s=15'>Uživatelé  ";
+     echo"   <span class='caret'></span></a> ";
+    echo"    <ul class='dropdown-menu'>     ";
+     echo"     <li><a href='novy.php?s=15'> Spravovat uživatele</a></li>    ";
+   echo"     </ul>  ";
+  echo"    </li>   ";
+      }
+      }  
+
+      ?>
+       </ul>
+       
+            <ul class="nav navbar-nav navbar-right">
       <li><a href="novy.php?s=7"><span class="glyphicon glyphicon-user"></span> Odhlásit se</a></li>
-    <!--  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>      !-->
     </ul>
+       
+       
+       <ul class="nav navbar-nav navbar-right">
+      <li><a href="novy.php?s=3"><span class="glyphicon glyphicon-log-in"></span> Přihlásit se</a></li>
+
+    </ul>
+      
+
+  
+    
+    
     
   </div>
 </nav>
@@ -68,24 +105,17 @@
     
   
  <?php
-  session_start();
-  
-  if (!isset($_SESSION["strana"]))    $_SESSION["strana"]=1;
-  if (!isset($_SESSION["login"]))     $_SESSION["login"]=false;
-  
+ 
   if (isset($_REQUEST["s"]))
              $_SESSION["strana"] =$_REQUEST["s"];
              
-//  if ($_SESSION["login"]==false)    { $_SESSION["strana"]=0; echo "neprihlasen";}
-//  if ($_SESSION["login"]==true)     echo  "prihlasen"; 
-  
-// if (isset($_REQUEST["email"])) prihlaseni();
 
   
  
  $strana = $_SESSION["strana"]; 
  $stranka = $strana .".php";
- if (file_exists("$stranka")) include($stranka); 
+ if (file_exists("$stranka")) include($stranka);
+  
  ?>        
        
 </div>
@@ -95,33 +125,3 @@
 
  
  
-<?php 
-
-function prihlaseni()
-{
-  $email =   $_REQUEST["email"];
-  $pwd =     $_REQUEST["pwd"];
-  if ($pwd == "12345")
-  { 
-   $_SESSION["login"]=true;
-   echo '
-    <div class="alert alert-success">
-    <strong>Success!</strong>Byl jste prihlasen.
-    </div> 
-    ';
-    $_SESSION["strana"]=1;
-  }
-  else
-  { 
-   echo '
-    <div class="alert alert-danger">
-    <strong>UnSuccess!</strong>NEBYL jste prihlasen.
-    </div> 
-    ';
-  }
-  
-  
-}
-
-
-

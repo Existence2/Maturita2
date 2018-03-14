@@ -1,0 +1,14 @@
+/* CSS Document */
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+    padding: 2px;
+}
+
+th {text-align: left;}
+</style>

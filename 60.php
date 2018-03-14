@@ -13,8 +13,10 @@
       $id = $_REQUEST["id"];
   else
   {
-    echo "chybné volání stránky bez id";
-    exit;  
+   echo "<div class=\"alert alert-danger\">";
+  echo "Chybné volání stránky bez id";
+  echo "</div>";
+  exit; 
    }
   
    echo "<div class=col-md-5>"; 
@@ -75,10 +77,7 @@
 	 	 echo "<input type=\"file\"  name=\"file\" size=\"60\"><br>";
       echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Nahrát obr</button> ";  
 	echo "</form>"; 
-
-
-  	   
-      
+    
   echo "</div>";
   
  

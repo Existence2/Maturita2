@@ -2,8 +2,6 @@
 
 session_destroy();
 $_SESSION['login']==false;
-   if($_SESSION['login']==true) echo"přihlášen";
-    if($_SESSION['login']==false) echo"nepřihlášen";
 
 
 ?>
