@@ -1,7 +1,7 @@
                                 
  <?php
      if($_SESSION["login"]==true){
-        echo $_SESSION['jmeno']." jste přihlášený";
+
  echo "<div class=row>";
  
   echo "<div class=col-md-2 >";  
@@ -36,13 +36,7 @@
 		echo "<select name=\"ryba\" id=\"ryba\" class=\"form-control\" size=1 >";
     
          
-require("../CONNECT/CONNECT.php");  
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-   $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-    printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-    exit();
-  }     
+require_once("MySQL.php");     
      
      
      
@@ -50,8 +44,10 @@ require("../CONNECT/CONNECT.php");
  $tabulka=$databaze->query($prikaz); 
  if ($tabulka->num_rows==0)
    {  
-   echo "Je nutné vložit do sytému aspon 1 druh ryby";
-   exit();}
+    echo "<div class=\"alert alert-danger\">";
+  echo "Je nutné vložit minimálně 1 druh ryb pro funkčnost webových stránek.";
+  echo "</div>";
+  exit;}
     
     
      While($radek=$tabulka->fetch_object())
@@ -80,8 +76,10 @@ require("../CONNECT/CONNECT.php");
  $tabulka=$databaze->query($prikaz); 
  if ($tabulka->num_rows==0)
    {  
-   echo "Je nutné vložit do sytému aspoň 1 druh ryby";
-   exit();}
+  echo "<div class=\"alert alert-danger\">";
+  echo "Je nutné vložit minimálně 1 revír pro funkčnost webových stránek.";
+  echo "</div>";
+  exit;}
     
     
      While($radek=$tabulka->fetch_object())
@@ -123,8 +121,11 @@ echo" </form>  ";
                     $sql = "INSERT INTO Ulovek (rozmer, vaha, datum, zpusob_lovu, Revir_idRevir, Druh_idDruh, Uzivatel_idUzivatel) VALUES ('$rozmer','$vaha','$datum','$lov','$revir','$druh','$iduzivatele' )";
                  
                     if (mysqli_query($databaze, $sql)) {
-                                 echo "Váš úlovek byl úspěšně uložen";
-                      } else {
+                                 echo "<div class=\"alert alert-successful\">";
+                                  echo "Váš úlovek byl úspěšně vložen.";
+                                  echo "</div>";
+                                  exit;   }
+                      else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
                            
@@ -139,18 +140,23 @@ echo" </form>  ";
   
                
          else{
-           echo("nezadal jste některý z údajů");
+           echo "<div class=\"alert alert-danger\">";
+                echo "Nezadal jste některý z údajů";
+                echo "</div>";
+                exit;
          } 
          }
  
  
- 
+   
  
  
  
         
         } 
     if($_SESSION["login"]==false){
-      echo "Nejste přihlášený";
-      exit();
-    }
+        echo "<div class=\"alert alert-danger\">";
+        echo "Nejste přihlášený.";
+        echo "</div>";
+        exit();}
+   

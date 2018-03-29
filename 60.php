@@ -81,14 +81,7 @@
   echo "</div>";
   
  
-  
-  require("../CONNECT/CONNECT.php");  
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-   $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-    printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-    exit();
-  }   
+require_once("MySQL.php"); 
   
    $sql="SELECT * FROM Ulovek WHERE idUlovek = '".$id."'";
    $vysledek = mysqli_query($databaze,$sql);
@@ -125,20 +118,9 @@
  	
 		echo "<select name=\"ryba\" id=\"ryba\" class=\"form-control\" size=1 >";
      
-        
-require("../CONNECT/CONNECT.php");  
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-   $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-    printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-    exit();
-  }     
-      
 
-     
-     
-  $prikaz = "SELECT idDruh, nazev  FROM Druh ";
- $tabulka=$databaze->query($prikaz); 
+$prikaz = "SELECT idDruh, nazev  FROM Druh ";
+$tabulka=$databaze->query($prikaz); 
  if ($tabulka->num_rows==0)
    {  
    echo "Je nutné vložit do sytému aspon 1 druh ryby";
@@ -212,14 +194,7 @@ echo" </form>  ";
   echo "</div>";   
    echo "</div>";         
         
-      
- 
-        
-        
-    if($_SESSION['login']==false){
-      echo "Nejste přihlášený";
-      exit();
-    }
+
     
     echo "<br><br>";
     echo "<form action=novy.php?s=5>";
