@@ -173,7 +173,7 @@ echo" </form>  ";
     
     
     echo "<br><br>";
-    echo "<form action=novy.php?s=10>";
+    echo "<form action=index.php?s=10>";
     echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Návrat zpět</button> ";
     echo "</form>";
     

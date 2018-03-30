@@ -7,5 +7,5 @@ $_SESSION['login']==false;
 ?>
 
  <script>
-window.location.href="http://student.sspbrno.cz/~koch.michael/MP/novy.php?s=3";
+window.location.href="http://student.sspbrno.cz/~koch.michael/MP/index.php?s=3";
 </script>

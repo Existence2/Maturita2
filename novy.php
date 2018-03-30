@@ -18,41 +18,41 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="novy.php?s=1">Home</a></li>
-      <li><a href="novy.php?s=2">Registrace</a></li>
+      <li class="active"><a href="index.php?s=1">Home</a></li>
+      <li><a href="index.php?s=2">Registrace</a></li>
 
        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=4">Články
+        <a class="dropdown-toggle" data-toggle="dropdown" href="index.php?s=4">Články
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="novy.php?s=4">Články</a></li>
-          <li><a href="novy.php?s=13"> Vložit článek</a></li>
+          <li><a href="index.php?s=4">Články</a></li>
+          <li><a href="index.php?s=13"> Vložit článek</a></li>
         </ul>
       </li>
       <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=5">Úlovky
+        <a class="dropdown-toggle" data-toggle="dropdown" href="index.php?s=5">Úlovky
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="novy.php?s=5"> Úlovky</a></li>
-          <li><a href="novy.php?s=6"> Vložit úlovek</a></li>
+          <li><a href="index.php?s=5"> Úlovky</a></li>
+          <li><a href="index.php?s=6"> Vložit úlovek</a></li>
         </ul>
       </li>
       
         <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=8">Revíry
+        <a class="dropdown-toggle" data-toggle="dropdown" href="index.php?s=8">Revíry
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="novy.php?s=8"> Revíry</a></li>
-          <li><a href="novy.php?s=9"> Vložit revír</a></li>
+          <li><a href="index.php?s=8"> Revíry</a></li>
+          <li><a href="index.php?s=9"> Vložit revír</a></li>
         </ul>
       </li>
       
          <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="novy.php?s=10">Ryby
+        <a class="dropdown-toggle" data-toggle="dropdown" href="index.php?s=10">Ryby
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="novy.php?s=10"> Ryby</a></li>
-          <li><a href="novy.php?s=11"> Vložit rybu</a></li>
+          <li><a href="index.php?s=10"> Ryby</a></li>
+          <li><a href="index.php?s=11"> Vložit rybu</a></li>
         </ul>
       </li>
       
@@ -71,10 +71,10 @@
      if($pravo>1){
     
      echo" <li class='dropdown'>";
-     echo"   <a class='dropdown-toggle' data-toggle='dropdown' href='novy.php?s=15'>Uživatelé  ";
+     echo"   <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?s=15'>Uživatelé  ";
      echo"   <span class='caret'></span></a> ";
     echo"    <ul class='dropdown-menu'>     ";
-     echo"     <li><a href='novy.php?s=15'> Spravovat uživatele</a></li>    ";
+     echo"     <li><a href='index.php?s=15'> Spravovat uživatele</a></li>    ";
    echo"     </ul>  ";
   echo"    </li>   ";
       }
@@ -84,12 +84,12 @@
        </ul>
        
             <ul class="nav navbar-nav navbar-right">
-      <li><a href="novy.php?s=7"><span class="glyphicon glyphicon-user"></span> Odhlásit se</a></li>
+      <li><a href="index.php?s=7"><span class="glyphicon glyphicon-user"></span> Odhlásit se</a></li>
     </ul>
        
        
        <ul class="nav navbar-nav navbar-right">
-      <li><a href="novy.php?s=3"><span class="glyphicon glyphicon-log-in"></span> Přihlásit se</a></li>
+      <li><a href="index.php?s=3"><span class="glyphicon glyphicon-log-in"></span> Přihlásit se</a></li>
 
     </ul>
       

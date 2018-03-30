@@ -124,7 +124,7 @@ while($row=$tabulka->fetch_object()) {
  
     echo "<tr>";
     echo "<td>";
-     echo "<a href=novy.php?id=" .$row->idRevir ." style=cursor:pointer;>";
+     echo "<a href=index.php?id=" .$row->idRevir ." style=cursor:pointer;>";
      echo $row->nazev; 
     echo "</a>"; 
     echo "</td>";    

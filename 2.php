@@ -1,4 +1,14 @@
 <?php 
+
+ 
+ 
+echo "<div class=\"row\">";
+echo "<div class=\"col-md-3\"></div>";
+echo "<div class=\"col-md-6\">";
+echo "<h2>Registrace nového uživatele</h2><br>";
+
+   
+
    echo "<div class=\"panel panel-primary\">";
 	echo "<div class=\"panel-heading\"> ";
 	echo "<h3 class=\"panel-title\">Registrace</h3>";
@@ -24,7 +34,9 @@
    echo "</div>";
   
 
-  
+  echo "</div>";
+echo "</div>";
+
   
 
 

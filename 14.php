@@ -51,7 +51,7 @@
    echo "<div class=col-md-1 ></div>";
    echo "<div class=col-md-1>";
   
-    echo "<form action=novy.php?s=4>";
+    echo "<form action=index.php?s=4>";
     echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Návrat zpět</button> ";
     echo "</form>";
    echo "</div>";              
@@ -61,7 +61,7 @@
    if($_SESSION['pravo']>1){
     $id1=$id;
     
-    echo "<form action=novy.php?s=1>";
+    echo "<form action=index.php?s=1>";
     echo "<div class=col-md-1>";
      echo "<input type=checkbox name=ok >";
       echo "</div>";

@@ -33,7 +33,7 @@ if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
                       
                
                     if (mysqli_query($databaze, $sql)) {
-                                 echo "Váš článek byl úspěšně smazár";
+                                 echo "Váš článek byl úspěšně smazán";
                       } else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
@@ -62,7 +62,7 @@ while($row=$tabulka->fetch_object()) {
  
     echo "<tr>";
     echo "<td>";
-     echo "<a href=novy.php?id=" .htmlspecialchars($row->id) ." style=cursor:pointer;>";
+     echo "<a href=index.php?id=" .htmlspecialchars($row->id) ." style=cursor:pointer;>";
      echo "$row->nazev"; 
     echo "</a>"; 
     echo "</td>";    

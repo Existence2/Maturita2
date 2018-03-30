@@ -48,7 +48,7 @@ while($row=$tabulka->fetch_object()) {
  
     echo "<tr>";
     echo "<td>";
-     echo "<a href=novy.php?id=" .htmlspecialchars($row->id) ." style=cursor:pointer;>";
+     echo "<a href=index.php?id=" .htmlspecialchars($row->id) ." style=cursor:pointer;>";
      echo "$row->nazev"; 
     echo "</a>"; 
     echo "</td>";    

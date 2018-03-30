@@ -1,10 +1,15 @@
-
- <?php
- $t1 = "Prihlaste se prosím";
+<?php
+ $t1 = "Přihlaste se prosím";
 	   $t2 = "Heslo";
 	   $t4 = "Přihlásit";
 	   $t5 = "Jméno";
-   
+ 
+ 
+echo "<div class=\"row\">";
+echo "<div class=\"col-md-3\"></div>";
+echo "<div class=\"col-md-6\">";
+echo "<h2>Přihlášení uživatele</h2><br>";
+
    
 	 
 	 
@@ -28,7 +33,9 @@
 	echo "</div>";
    echo "</div>";
   
-  
+
+echo "</div>";
+echo "</div>";
 
 require_once("MySQL.php"); 
 
