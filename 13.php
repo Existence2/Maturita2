@@ -32,6 +32,15 @@ echo" </form>  ";
   echo "</div>";   
    echo "</div>";         
  
+ echo "<br>";
+  echo "<div class=row>";
+  echo "<div class=col-md-2 >";  
+  echo "</div>";
+  
+  
+  echo "<div class=col-md-8 >";  
+
+ 
           require_once("MySQL.php"); 
            if (isset($_REQUEST['tlacitko'])){
            if($_POST['nazev'] <>"" AND  $_POST['text'] <>""){       
@@ -45,18 +54,19 @@ echo" </form>  ";
                     
                      {
                       
-                         if($radek->nazev == $nazev AND $radek->text == $text){
-                          echo "Článek se stejným nadpisem a názvem již existuje " ;
+                         if($radek->nazev == $nazev and $radek->text == $text){
+                           echo "<div class=\"alert alert-warning\">Článek se stejným nadpisem a názvem již existuje </div>" ;
                           exit();
                           }
                       
                         if($radek->nazev == $nazev){
-                          echo "Článek se stejným nadpisem již existuje " ;
+			              echo "<div class=\"alert alert-warning\">Článek se stejným nadpisem již existuje </div>" ;
+
                           exit();
                           }
                           
                         if($radek->text == $text){
-                          echo "Článek se stejným textem již existuje " ;
+			              echo "<div class=\"alert alert-warning\">Článek se stejným textem již existuje </div>" ;
                           exit();
                           }
                         
@@ -67,7 +77,7 @@ echo" </form>  ";
                  
                  $prikaz = "INSERT into Clanek(idClanek,nazev,text,Uzivatel_idUzivatel, datum) VALUES('Null','$nazev','$text',$id_uzivatele,'$datum')";
                   if(mysqli_query($databaze, $prikaz)) {
-                                 echo "Váš úlovek byl úspěšně uložen";
+                                 echo "<div class=\"alert alert-success\">Článek byl úspěšně uložen</div>";
                       } else {
                             echo "Error: " . $prikaz . "<br>" . mysqli_error($databaze);
                       } 
@@ -79,7 +89,10 @@ echo" </form>  ";
           
       }
    }      
-               
+        
+  echo "<div class=col-md-2 >";  
+  echo "</div>";   
+   echo "</div>";                  
       
   if($_SESSION["login"]==false){
     echo "Nejste přihlášený";

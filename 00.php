@@ -9,7 +9,7 @@ if (isset($_REQUEST["id"]))
   $idc = $_REQUEST["id"];
 
 	$prikaz = "SELECT Clanek.idClanek as id, Uzivatel.jmeno as jmeno, Clanek.nazev as nazev, Clanek.datum as datum, Clanek.text  
-	FROM Clanek INNER JOIN Uzivatel WHERE Clanek.Uzivatel_idUzivatel = Uzivatel.idUzivatel and Clanek.idClanek= '$idc' ";
+	FROM Clanek INNER JOIN Uzivatel WHERE Clanek.Uzivatel_idUzivatel = Uzivatel.idUzivatel and Clanek.idClanek= '$idc'  ";
 
    
 	$tabulka = $databaze->query($prikaz); 
@@ -164,7 +164,7 @@ $od = $_SESSION["aktpozice"];
 
 	
 $prikaz = "SELECT Clanek.idClanek as id, Uzivatel.jmeno as jmeno, Clanek.nazev as nazev, Clanek.datum as datum, Clanek.text  
-	FROM Clanek INNER JOIN Uzivatel WHERE Clanek.Uzivatel_idUzivatel = Uzivatel.idUzivatel ";
+	FROM Clanek INNER JOIN Uzivatel WHERE Clanek.Uzivatel_idUzivatel = Uzivatel.idUzivatel and Clanek.viditelnost=0 ";
 	
 if ($iduz <> "")
 	$prikaz .=" and Clanek.Uzivatel_idUzivatel = '$iduz' ";

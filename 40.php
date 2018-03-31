@@ -36,6 +36,7 @@
 
  echo "<form name=edit  method=post action=\"index.php?s=4\">";
 echo "<input type=hidden name=id1 value= $id>"; 
+echo "<input type=hidden name=iduz value=" .$radek['Uzivatel_idUzivatel'] .">"; 
  echo" <div class=\"form-group\"> ";
  echo"   <label for=\"nazev\">Zadejte nadpis článku </label>  ";
  echo"   <input type=\"text\" name=\"nazev\" class=\"form-control\"  value=\"" .$radek['nazev'] ."\">";
@@ -55,13 +56,30 @@ echo "<input type=hidden name=id1 value= $id>";
  echo "<div class=row>";
 
  echo "<div class=col-md-3 >";  
-echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Uložit</button> ";
+echo" <button type=\"submit\" name=\"uloz\" class=\"btn btn-primary\">Uložit</button> ";
  echo "</div>";        
- echo "<div class=col-md-8 >";  
-echo" <button type=\"submit\" name=\"blokace\" class=\"btn btn-danger\">Zeblokovat</button> ";
-echo " - Touto funkcí moderátor zablokuje článek i jeho autora<br>";
- echo "</div>";        
+ 
+ 
+ $pravo = $_SESSION['pravo'];
+ if($pravo>1){
+  echo "<div class=col-md-8 >";  
+ 
+   if ($radek['viditelnost'] == 0)
+   {
+    echo " <button type=\"submit\" name=\"blokace\" class=\"btn btn-danger\">Zablokovat</button> ";
+    echo " - Touto funkcí moderátor zablokuje článek i jeho autora<br>";
+   }
+   else
+   {
+    echo " <button type=\"submit\" name=\"odblokace\" class=\"btn btn-success\">Odblokovat</button> ";
+    echo " - Touto funkcí moderátor odblokuje článek. Autora musí odblokovat ručně. <br>";
+   }
+   
 
+
+  echo "</div>";        
+ } 
+ 
 echo" </form>  ";
 
 

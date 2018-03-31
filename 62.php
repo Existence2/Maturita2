@@ -140,7 +140,7 @@ echo "<input type=hidden name=id1 value= $id>";
 
   echo" <div class=\"form-group\"> ";
  echo"   <label for=\"popis\">Zadejte popis ryby  </label>  ";
- echo"   <textarea class=\"form-control\" rows=\"5\" name=\"popis\" class=\"form-control\" id=\"popis\" value=\"" .$radek['popis'] ."\"> </textarea> ";
+ echo"   <textarea class=\"form-control\" rows=\"5\" name=\"popis\" class=\"form-control\" id=\"popis\"> ".$radek['popis']."</textarea> ";
  echo" </div>    ";
       
      

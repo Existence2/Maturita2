@@ -33,7 +33,7 @@ if (isset($_POST['idd']) and isset($_POST['smazej']))
                       
                
                     if (mysqli_query($databaze, $sql)) {
-                                 echo "Váš článek byl úspěšně smazán";
+                                echo "<br><div class=\"alert alert-success\">Článek byl úspěšně smazán</div><br>";
                       } else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
@@ -50,10 +50,11 @@ if (isset($_POST['idd']) and isset($_POST['smazej']))
                       $text= htmlentities($_POST['text']);
                       $datum= date('Y-m-d');
                       $id1 = $_POST['id1'];
+					  $iduz= $_POST['iduz'];
                     
 					
 					
-				if (!isset($_POST['blokace']))
+				if (isset($_POST['uloz']))
 				{	
 					
                     $sql = "UPDATE Clanek SET
@@ -72,14 +73,31 @@ if (isset($_POST['idd']) and isset($_POST['smazej']))
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
 				}
-				else
-				{
-					// blokace
-					
-					// sem si dop
-					
-					
-				}
+
+				if (isset($_POST['blokace']))
+				{ 
+				    $sql="UPDATE Clanek SET viditelnost='1' WHERE idClanek = '".$id1 ."'";
+				    $vysledek = mysqli_query($databaze,$sql);
+   
+				   $sql2="UPDATE Uzivatel SET blokace='1' WHERE idUzivatel = '".$iduz."'";
+				   $vysledek2 = mysqli_query($databaze,$sql2);
+				   
+				   if (mysqli_query($databaze, $sql2)) {
+			    	  echo "<div class=\"alert alert-danger\">Uživatel společně s článkem byl zablokován</div>";
+				    }
+			    }
+				
+				
+				if (isset($_POST['odblokace']))
+				{ 
+				    $sql="UPDATE Clanek SET viditelnost='0' WHERE idClanek = '".$id1 ."'";
+				    $vysledek = mysqli_query($databaze,$sql);
+   
+				   
+				   if (mysqli_query($databaze, $sql)) {
+			    	  echo "<div class=\"alert alert-success\">Článek byl odblokován</div>";
+				    }
+			    }
 				
          
 		 
@@ -97,14 +115,15 @@ echo "<tr>";
   echo "<th>Nadpis</th>";
   echo "<th>Uživatel</th>";
   echo "<th>Datum</th>";
+  echo "<th>Zablokovaný</th>";
  // echo "<th></th>";
  // echo "<th></th>";
 echo "</tr>";
 echo "   </thead>";
 
 
-if($_SESSION['pravo']>1){$prikaz = "SELECT Clanek.idClanek as id, Uzivatel.jmeno as jmeno, Clanek.nazev as nazev, Clanek.datum as datum FROM Clanek INNER JOIN Uzivatel WHERE Clanek.Uzivatel_idUzivatel = Uzivatel.idUzivatel";}
-else{$prikaz = "SELECT Clanek.idClanek as id, Uzivatel.jmeno as jmeno, Clanek.nazev as nazev, Clanek.datum as datum FROM Clanek INNER JOIN Uzivatel WHERE Clanek.Uzivatel_idUzivatel = Uzivatel.idUzivatel AND Uzivatel.idUzivatel='$q' "; }
+if($_SESSION['pravo']>1){$prikaz = "SELECT Clanek.idClanek as id, Uzivatel.jmeno as jmeno, Clanek.nazev as nazev, Clanek.datum as datum, Clanek.viditelnost as viditelny FROM Clanek INNER JOIN Uzivatel WHERE Clanek.Uzivatel_idUzivatel = Uzivatel.idUzivatel ";}
+else{$prikaz = "SELECT Clanek.idClanek as id, Uzivatel.jmeno as jmeno, Clanek.nazev as nazev, Clanek.datum as datum, Clanek.viditelnost as viditelny FROM Clanek INNER JOIN Uzivatel WHERE Clanek.Uzivatel_idUzivatel = Uzivatel.idUzivatel AND Uzivatel.idUzivatel='$q' "; }
 $tabulka = $databaze->query($prikaz); 
 while($row=$tabulka->fetch_object()) {
  
@@ -116,7 +135,8 @@ while($row=$tabulka->fetch_object()) {
     echo "</td>";    
     
     echo "<td>" . htmlspecialchars($row->jmeno) . "</td>";
-    echo "<td>" . htmlspecialchars($row->datum) . "</td>";   
+    echo "<td>" . htmlspecialchars($row->datum) . "</td>";  
+   echo "<td>" . htmlspecialchars($row->viditelny) . "</td>";  
     
       echo "<td>";
     
