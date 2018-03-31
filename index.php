@@ -119,7 +119,7 @@
   if($_SESSION["login"]== true){
     $pravo = $_SESSION['pravo'];
      if($pravo>1){
-    
+    echo "<ul class=\"nav navbar-nav navbar-right\">";
      echo" <li class='dropdown'>";
      echo"   <a class='dropdown-toggle' data-toggle='dropdown' href='index.php?s=15'>Uživatelé  ";
      echo"   <span class='caret'></span></a> ";
@@ -127,6 +127,7 @@
      echo"     <li><a href='index.php?s=15'> Spravovat uživatele</a></li>    ";
    echo"     </ul>  ";
    echo"    </li>   ";
+   echo"     </ul>  ";
       }
       }  
 

@@ -12,7 +12,7 @@
 
 $q=$_SESSION['id'];
 
-if (isset($_REQUEST["id"]))
+if (isset($_GET["id"]))
 {
   include("40.php");
   exit;
@@ -24,9 +24,9 @@ else
  
 require_once("MySQL.php"); 
 
-if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
+if (isset($_POST['idd']) and isset($_POST['smazej']))
     {
-         $idd = $_REQUEST['idd'];
+         $idd = $_POST['idd'];
          
               $sql = "DELETE FROM Clanek 
                       WHERE idClanek='$idd'";
@@ -41,6 +41,54 @@ if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
                       
          
     } 
+
+
+     
+     if (isset($_POST['id1'])){
+         if($_POST['nazev'] <> "" and  $_POST['text'] <> "" ){       
+                      $nazev= htmlentities($_POST['nazev']);
+                      $text= htmlentities($_POST['text']);
+                      $datum= date('Y-m-d');
+                      $id1 = $_POST['id1'];
+                    
+					
+					
+				if (!isset($_POST['blokace']))
+				{	
+					
+                    $sql = "UPDATE Clanek SET
+                      nazev = '$nazev',
+                      text='$text',
+                      datum = '$datum'  
+                      WHERE idClanek='$id1'";
+                     
+                   
+                       
+                    if (mysqli_query($databaze, $sql)) {
+                              echo "<div class=\"alert alert-success\">";
+                              echo "Váš článek byl aktualizován.";
+                              echo "</div>";
+                      } else {
+                            echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
+                      } 
+				}
+				else
+				{
+					// blokace
+					
+					// sem si dop
+					
+					
+				}
+				
+         
+		 
+		 }  
+         else{
+           echo("nezadal jste některý z údajů");
+         } 
+         }
+
 
 
 echo "<table class=\"table table-bordered\">";
@@ -88,40 +136,10 @@ while($row=$tabulka->fetch_object()) {
 echo "</table>";
 
 
-
-
   
-  
-  if (isset($_REQUEST['id1'])){
-         if($_REQUEST['nazev'] <> "" and  $_REQUEST['text'] <> "" ){       
-                      $nazev= htmlentities($_REQUEST['nazev']);
-                      $text= htmlentities($_REQUEST['text']);
-                      $datum= date('Y-m-d');
-                      $id1 = $_REQUEST['id1'];
-                    
-                    $sql = "UPDATE Clanek SET
-                      nazev = '$nazev',
-                      text='$text',
-                      datum = '$datum'  
-                      WHERE idClanek='$id1'";
-                     
-                   
-                       
-                    if (mysqli_query($databaze, $sql)) {
-                                 echo "Váš článek byl úspěšně aktualizován";
-                      } else {
-                            echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
-                      } 
-                           
-                
-                   }  
-                   
-  
-               
-         else{
-           echo("nezadal jste některý z údajů");
-         } 
-         }
+    
+   
+ 
 
  
     

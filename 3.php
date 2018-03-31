@@ -62,8 +62,13 @@ if (isset($_REQUEST['prihlasit'])){
   exit;
  }
    if($radek->blokace==0){
+   echo "<div class=\"row\">";
+  echo "<div class=\"col-md-3\"></div>";
+  echo "<div class=\"col-md-6\">";
     echo"<div class='alert alert-success'> <strong>$radek->jmeno</strong> 
   přihlášení bylo úspěšné</div>";
+   echo "</div>";
+  echo "</div>";
      $id_uzivatele=$radek->idUzivatel;
      $pravo=$radek->pravo;
      $blokace=$radek->blokace;

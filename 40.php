@@ -1,5 +1,6 @@
-                                
- <?php
+                            
+<?php
+
 
  echo "<div class=row>";
  
@@ -9,8 +10,8 @@
       exit();
     }
     // id je id radku v tabulce k editaci
-  if (isset($_REQUEST["id"]))
-      $id = $_REQUEST["id"];
+  if (isset($_GET["id"]))
+      $id = $_GET["id"];
   else
   {
     echo "chybné volání stránky bez id";
@@ -26,36 +27,45 @@
    $vysledek = mysqli_query($databaze,$sql);
    $radek= mysqli_fetch_array($vysledek); 
  
-       
+           
 
-  echo "<div class=col-md-5 >";  
+  echo "<div class=col-md-1 >";  
+  echo "</div>";   
 
- echo "<form > ";
+  echo "<div class=col-md-10 >";  
+
+ echo "<form name=edit  method=post action=\"index.php?s=4\">";
 echo "<input type=hidden name=id1 value= $id>"; 
  echo" <div class=\"form-group\"> ";
  echo"   <label for=\"nazev\">Zadejte nadpis článku </label>  ";
- echo"   <input type=\"text\" name=\"nazev\" class=\"form-control\" id=\"nazev\" value=\"" .$radek['nazev'] ."\">";
+ echo"   <input type=\"text\" name=\"nazev\" class=\"form-control\"  value=\"" .$radek['nazev'] ."\">";
  echo" </div>  ";
   
-  echo" <div class=\"form-group\"> ";
+  
+
+ echo" <div class=\"form-group\"> ";
  echo"   <label for=\"text\">Zadejte obsah článku  </label>  ";
- echo"   <textarea class=\"form-control\" rows=\"25\" name=\"text\" class=\"form-control\" id=\"text\">" .$radek['text'] ."</textarea> ";
+ echo"   <textarea class=\"form-control\" rows=\"25\" name=\"text\" class=\"form-control\">"  .$radek['text'] ."</textarea> ";
  echo" </div>    "; 
  
- 
- echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Potvrď</button> ";
+
+ echo "<br><hr><br>"; 
+
+
+ echo "<div class=row>";
+
+ echo "<div class=col-md-3 >";  
+echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Uložit</button> ";
+ echo "</div>";        
+ echo "<div class=col-md-8 >";  
+echo" <button type=\"submit\" name=\"blokace\" class=\"btn btn-danger\">Zeblokovat</button> ";
+echo " - Touto funkcí moderátor zablokuje článek i jeho autora<br>";
+ echo "</div>";        
+
 echo" </form>  ";
-  echo "</div>";        
-        
-        
-        
-  echo "<div class=col-md-2 >";  
-  echo "</div>";   
+
+
   echo "</div>";         
-        
-      
- 
-        
         
     
     
