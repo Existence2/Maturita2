@@ -103,7 +103,7 @@ if (isset($_POST['idd']) and isset($_POST['smazej']))
 		 
 		 }  
          else{
-           echo("nezadal jste některý z údajů");
+             echo"<br> <div class='alert alert-danger'>Nezadal jste některý z údajů </div><br>" ;
          } 
          }
 

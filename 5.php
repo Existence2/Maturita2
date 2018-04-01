@@ -34,7 +34,7 @@ if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
                       
                
                     if (mysqli_query($databaze, $sql)) {
-                                 echo "Váš úlovek byl úspěšně smazán";
+                               echo " <div class='alert alert-success'>Váš úlovek byl úspěšně smazán </div>";
                       } else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
@@ -78,18 +78,20 @@ else
                    
                        
                     if (mysqli_query($databaze, $sql)) {
-                                 echo "Váš úlovek byl úspěšně aktualizován";
+                                  echo "<br> <div class='alert alert-success'>
+                            Váš úlovek byl <strong>aktualizován</strong> 
+                                          </div> <br> ";
                       } else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
                            
-                //   vaha, datum, zpusob_lovu, Revir_idRevir, Druh_idDruh, Uzivatel_idUzivatel) VALUES ('$rozmer','$vaha','$datum','$lov','$revir','$druh','$iduzivatele' )
+
                    }  
                    
   
                
          else{
-           echo("nezadal jste některý z údajů");
+          echo"<br> <div class='alert alert-danger'>Nezadal jste některý z údajů </div><br>" ;
          } 
          }
  
@@ -151,7 +153,7 @@ while($row=$tabulka->fetch_object()) {
 echo "</table>";
 
 }
-//mysqli_close($databaze);
+
 
 
 ?>

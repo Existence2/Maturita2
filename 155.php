@@ -1,17 +1,17 @@
  <?php 
  echo "<div class=row>";
  
- if($_SESSION['login']==false){
-     echo "<div class=col-md-5>"; 
-      echo "Nejste přihlášený";
-      exit();
-    }
+if($_SESSION['pravo']<3 OR $_SESSION['login']==FALSE){  
+   echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci s uživateli musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;}
 
   if (isset($_REQUEST["id"])) {
       $id = $_REQUEST["id"];   }
   else
   {
-    echo "chybné volání stránky bez id";
+     echo "<div class=\"alert alert-danger\">chybné volání stránky bez id </div>";
     exit;  
    }
   
@@ -25,8 +25,11 @@
    $radek= mysqli_fetch_array($vysledek); 
  
        
-
+  echo "<div class=col-md-3 ></div>";  
   echo "<div class=col-md-5 >";  
+  
+  echo "<h2>Editace uživatele</h2>";
+  echo "<br>";
 
  echo "<form > ";
 echo "<input type=hidden name=id1 value= $id>"; 
@@ -36,7 +39,7 @@ echo "<input type=hidden name=id1 value= $id>";
  echo" </div>  ";
   
   echo" <div class=\"form-group\"> ";
- echo"   <label for=\"text\">Zadejte pravo  </label>  ";
+ echo"   <label for=\"text\">Zadejte pravo 1-uživatel, 2-moderátor, 3-správce </label>  ";
  echo"   <input type=\"text\" name=\"pravo\" class=\"form-control\" id=\"pravo\" value=\"" .$radek['pravo'] ."\">";
  echo" </div>    "; 
  
@@ -47,6 +50,16 @@ echo "<input type=hidden name=id1 value= $id>";
  
  echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Potvrď</button> ";
 echo" </form>  ";
+
+
+
+    
+    echo "<br><br>";
+    echo "<form action=index.php?s=4>";
+    echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Návrat zpět</button> ";
+    echo "</form>";
+
+
   echo "</div>";        
         
         
@@ -60,10 +73,5 @@ echo" </form>  ";
         
         
     
-    
-    echo "<br><br>";
-    echo "<form action=index.php?s=4>";
-    echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Návrat zpět</button> ";
-    echo "</form>";
     
 ?>    

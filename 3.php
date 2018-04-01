@@ -48,8 +48,14 @@ if (isset($_REQUEST['prihlasit'])){
     $prikaz = "SELECT idUzivatel, jmeno, heslo, pravo, blokace FROM Uzivatel WHERE jmeno = '$jmeno' AND heslo = '$heslo'";
     $tabulka=$databaze->query($prikaz);
     if ($tabulka->num_rows==0)
-   {  echo '<div class="alert alert-danger">  
+   {  
+    echo "<div class=\"row\">";
+  echo "<div class=\"col-md-3\"></div>";
+  echo "<div class=\"col-md-6\">";
+   echo '<div class="alert alert-danger">  
   Přihlášení <strong>neprovedeno.</strong> Musíte se registrovat</div>';
+    echo "</div>";
+  echo "</div>";
   exit;}
     
     
@@ -57,8 +63,13 @@ if (isset($_REQUEST['prihlasit'])){
    {
    
    if($radek->blokace==1){
+      echo "<div class=\"row\">";
+  echo "<div class=\"col-md-3\"></div>";
+  echo "<div class=\"col-md-6\">";
   	echo '<div class="alert alert-danger">  
   <strong>POZOR!</strong> Váš účet byl zablokován pro porušení pravidel vkládání članků</div>';
+    echo "</div>";
+  echo "</div>";
   exit;
  }
    if($radek->blokace==0){
@@ -88,9 +99,15 @@ if (isset($_REQUEST['prihlasit'])){
  } 
   }
   else {
+     echo "<div class=\"row\">";
+  echo "<div class=\"col-md-3\"></div>";
+  echo "<div class=\"col-md-6\">";
     echo '<div class="alert alert-danger">  
   Přihlášení <strong>neprovedeno.</strong> Heslo a jméno nebylo zadáno</div>';
+  echo "</div>";
+  echo "</div>";
   exit;
+    
    }
 
   

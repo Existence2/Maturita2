@@ -16,7 +16,7 @@
       $id = $_REQUEST["id"];
   else
   {
-    echo "chybné volání stránky bez id";
+   echo "<div class=\"alert alert-danger\">chybné volání stránky bez id </div>";
     exit;  
    }
   
@@ -85,13 +85,7 @@
   
  
   
-  require("../CONNECT/CONNECT.php");  
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-   $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-    printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-    exit();
-  }   
+ require_once("MySQL.php"); 
   
    $sql="SELECT * FROM Revir WHERE idRevir = '".$id."'";
    $vysledek = mysqli_query($databaze,$sql);
@@ -112,12 +106,12 @@ echo "<input type=hidden name=id1 value= $id>";
  echo"   <input type=\"text\" name=\"lokalita\" class=\"form-control\" id=\"lokalita\" value=\"" .$radek['kraj'] ."\">  ";
  echo" </div>    ";
   echo" <div class=\"form-group\"> ";
- echo"   <label for=\"popis\">Zadejte popis vašeho revíru </label> ";
- echo"   <input type=\"text\"  name=\"popis\" class=\"form-control\" id=\"popis\" value=\"" .$radek['popis'] ."\">  ";
- echo" </div>    ";
+ echo"   <label for=\"popis\">Zadejte popis revíru  </label>  ";
+ echo"   <textarea class=\"form-control\" rows=\"5\" name=\"popis\" class=\"form-control\" id=\"popis\">".$radek['popis']."</textarea> "; 
+ echo" </div>    ";  
     echo" <div class=\"form-group\"> ";
  echo"   <label for=\"rozmer\">Zadejte rozměr vašeho revíru v kilometrech (povolena dvě desetinná místa) </label>  ";
- echo"   <input type=\"number\" name=\"rozmer\" class=\"form-control\" id=\"rozmer\"  value=\"" .$radek['velikost'] ."\">  ";
+ echo"   <input type=\"number\" name=\"rozmer\" step=\"0.01\" class=\"form-control\" id=\"rozmer\"  value=\"" .$radek['velikost'] ."\">  ";
  echo" </div>    ";
  
  echo" <div class=\"form-group\"> ";
@@ -125,19 +119,7 @@ echo "<input type=hidden name=id1 value= $id>";
  echo"   <input type=\"text\" name=\"svaz\" class=\"form-control\" id=\"svaz\" value=\"" .$radek['svaz'] ."\">  ";
  echo" </div>    ";
       
-     
-        
-require("../CONNECT/CONNECT.php");  
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-   $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-    printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-    exit();
-  }     
-      
-       
- 				 
- 
+
  echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Potvrď</button> ";
 echo" </form>  ";
   echo "</div>";        

@@ -1,7 +1,14 @@
                                 
  <?php
-     if($_SESSION["login"]==true){
-
+    
+ if ($_SESSION['login']== false)
+ {
+  echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci s úlovky musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;
+  
+ }
  echo "<div class=row>";
  
   echo "<div class=col-md-2 >";  
@@ -17,7 +24,7 @@
  echo" </div>  ";
  echo" <div class=\"form-group\"> ";
  echo"   <label for=\"vaha\">Zadejte váhu vašeho úlovku v kg (dvě desetinná místa) </label>  ";
- echo"   <input type=\"text\" class=\"form-control\" name=\"vaha\" id=\"vaha\"> ";
+ echo"   <input type=\"text\" class=\"form-control\" name=\"vaha\" step=\"0.01\" id=\"vaha\"> ";
  echo" </div>    ";
   echo" <div class=\"form-group\"> ";
  echo"   <label for=\"datum\">Zadejte datum vašeho úlovku</label>  ";
@@ -121,20 +128,14 @@ echo" </form>  ";
                     $sql = "INSERT INTO Ulovek (rozmer, vaha, datum, zpusob_lovu, Revir_idRevir, Druh_idDruh, Uzivatel_idUzivatel) VALUES ('$rozmer','$vaha','$datum','$lov','$revir','$druh','$iduzivatele' )";
                  
                     if (mysqli_query($databaze, $sql)) {
-                                 echo "<div class=\"alert alert-successful\">";
+                                 echo "<br><div class=\"alert alert-success\">";
                                   echo "Váš úlovek byl úspěšně vložen.";
                                   echo "</div>";
                                   exit;   }
                       else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
-                           
-                   /*$prikaz="INSERT into Druh VALUES('Null',?,?,?,?,?,?,?)";
-                     $vysledek=$databaze->prepare($prikaz);
-                      var_dump($vysledek);
-                     $vysledek->bind_param("iissiii",$rozmer,$vaha,$datum,$lov,$revir,$druh,$iduzivatele);
-                      $vysledek->execute();
-                      */
+
                    }  
                    
   
@@ -153,10 +154,3 @@ echo" </form>  ";
  
  
         
-        } 
-    if($_SESSION["login"]==false){
-        echo "<div class=\"alert alert-danger\">";
-        echo "Nejste přihlášený.";
-        echo "</div>";
-        exit();}
-   

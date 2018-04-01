@@ -5,39 +5,23 @@
   <meta name="generator" content="PSPad editor, www.pspad.com">
   <title></title>
  
-<!--
-Styl oddělený
--->
 <style>
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, td, th {
-    border: 1px solid black;
-    padding: 2px;
-}
-
-th {text-align: left;}
+  {include 'tabulka.css'}
 </style>
 </head>
 <body>
 
 <?php
-header('Content-Type: text/html; charset=utf-8');
- require("../CONNECT/CONNECT.php"); 
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-  $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-  printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-       exit();
-            }
+require_once("MySQL.php"); 
 
-//$q=$_SESSION['id'];
-//echo $q;
-
-
+ if ($_SESSION['login']== false)
+ {
+  echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci se webovou stránkou musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;
+  
+ }
 if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
     {
          $idd = $_REQUEST['idd'];
@@ -47,7 +31,7 @@ if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
                       
                
                     if (mysqli_query($databaze, $sql)) {
-                                 echo "Váš druh byl úspěšně smazán";
+                                echo " <div class='alert alert-success'>Váš druh byl úspěšně smazán </div>";
                       } else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
@@ -102,7 +86,7 @@ else
   
                
          else{
-           echo("nezadal jste některý z údajů");
+           echo" <div class='alert alert-danger'>Nezadal jste některý z údajů, aktualizace se nepodařila </div>" ;
          } 
          }
  

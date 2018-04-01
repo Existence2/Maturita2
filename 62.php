@@ -7,7 +7,7 @@
  if ($_SESSION['login']== false)
  {
   echo "<div class=\"alert alert-danger\">";
-  echo "Pro práci se rybami musíte být přihlášen. Přihlaste se prosím";
+  echo "Pro práci s webovou stránkou musíte být přihlášen. Přihlaste se prosím";
   echo "</div>";
   exit;
   
@@ -18,7 +18,7 @@
       $id = $_REQUEST["id"];
   else
   {
-    echo "chybné volání stránky bez id";
+    echo "<div class=\"alert alert-danger\">chybné volání stránky bez id </div>";
     exit;  
    }
   
@@ -88,13 +88,7 @@
   
  
   
-  require("../CONNECT/CONNECT.php");  
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-   $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-    printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-    exit();
-  }   
+ require_once("MySQL.php");   
   
    $sql="SELECT * FROM Druh WHERE idDruh = '".$id."'";
    $vysledek = mysqli_query($databaze,$sql);
@@ -114,7 +108,7 @@ echo "<input type=hidden name=id1 value= $id>";
  echo"   <label for=\"rad\">Zadejte k jakému řádu ryba patří </label>  ";
  echo"   <input type=\"text\" name=\"rad\" class=\"form-control\" id=\"rad\" value=\"" .$radek['rad'] ."\">";
  echo" </div>    ";
-  echo" <div class=\"form-group\"> ";
+ echo" <div class=\"form-group\"> ";
  echo"   <label for=\"celed\">Zadejte k jaké čeledi  ryba patří </label> ";
  echo"   <input type=\"text\"  name=\"celed\" class=\"form-control\" id=\"celed\" value=\"" .$radek['celed'] ."\">";
  echo" </div>    ";
@@ -128,37 +122,25 @@ echo "<input type=hidden name=id1 value= $id>";
  echo"   <input type=\"text\" name=\"konec\" class=\"form-control\" id=\"konec\" value=\"" .$radek['konec_hajeni'] ."\">";
  echo" </div>    ";
  
-  echo" <div class=\"form-group\"> ";
+ echo" <div class=\"form-group\"> ";
  echo"   <label for=\"potrava\">Zadejt přirozenou potravu, kterou se daný druh ryby živí </label>  ";
  echo"   <input type=\"text\" name=\"potrava\" class=\"form-control\" id=\"potrava\" value=\"" .$radek['potrava'] ."\">";
  echo" </div>    ";
  
-   echo" <div class=\"form-group\"> ";
+  echo" <div class=\"form-group\"> ";
  echo"   <label for=\"navnada\">Zadejte vhodnou návnadu  </label>  ";
  echo"   <input type=\"text\" name=\"navnada\" class=\"form-control\" id=\"navnada\" value=\"" .$radek['navnada'] ."\">";
  echo" </div>    ";
 
-  echo" <div class=\"form-group\"> ";
+ echo" <div class=\"form-group\"> ";
  echo"   <label for=\"popis\">Zadejte popis ryby  </label>  ";
  echo"   <textarea class=\"form-control\" rows=\"5\" name=\"popis\" class=\"form-control\" id=\"popis\"> ".$radek['popis']."</textarea> ";
  echo" </div>    ";
       
-     
-        
-require("../CONNECT/CONNECT.php");  
-  $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-   $databaze->set_charset("utf8");
-  if ($databaze->connect_errno){
-    printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-    exit();
-  }     
-      
-       
- 				 
- 
- echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Potvrď</button> ";
+
+echo" <button type=\"submit\" name=\"tlacitko\" class=\"btn btn-primary\">Potvrď</button> ";
 echo" </form>  ";
-  echo "</div>";        
+echo "</div>";        
         
         
         

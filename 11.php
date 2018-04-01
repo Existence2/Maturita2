@@ -1,7 +1,14 @@
                                 
  <?php
-     if($_SESSION["login"]==true){
-        echo $_SESSION['jmeno']." jste přihlášený"; 
+
+  if ($_SESSION['login']== false)
+ {
+  echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci se webovou stránkou musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;
+  
+ }
  echo "<div class=row>";
  
   echo "<div class=col-md-2 >";  
@@ -46,10 +53,10 @@
   echo" <div class=\"form-group\"> ";
  echo"   <label for=\"popis\">Zadejte popis ryby  </label>  ";
  echo"   <textarea class=\"form-control\" rows=\"5\" name=\"popis\" class=\"form-control\" id=\"popis\"> </textarea> ";
- echo" </div>    ";
-
+ echo" </div>    ";  
  
-echo "<button type=\"submit\" name= \"tlacitko\" class=\"btn btn-primary\">potvrd</button> ";
+ 
+echo "<button type=\"submit\" name= \"tlacitko\" class=\"btn btn-primary\">Potvrď</button> ";
 echo" </form>  ";
   echo "</div>";        
         
@@ -59,13 +66,7 @@ echo" </form>  ";
   echo "</div>";   
    echo "</div>";         
      
-          require("../CONNECT/CONNECT.php"); 
-          $databaze=new mysqli($host, $user, $password, $db) or die("connect ERROR");
-          $databaze->set_charset("utf8");
-          if ($databaze->connect_errno){
-            printf("Pripojeni spadlo: %s\n", $databaze->connect_error);
-            exit();
-          }
+require_once("MySQL.php"); 
          if (isset($_REQUEST['tlacitko'])){
          if($_REQUEST['nazev'] <> "" and  $_REQUEST['rad'] <>"" and  $_REQUEST['celed'] <>"" and  $_REQUEST['zacatek'] <>""  and  $_REQUEST['konec'] <>""  and  $_REQUEST['potrava'] <>""  and  $_REQUEST['navnada'] <>""  and  $_REQUEST['popis'] <>""){       
                     $nazev= $_REQUEST['nazev'];
@@ -84,34 +85,25 @@ echo" </form>  ";
                    {
                     
                       if($radek->nazev == $nazev){
-                        echo "Revír se stejným názvem již existuje " ;
+                        echo "<br><div class=\"alert alert-danger\">Druh se stejným názvem již existuje</div> <br>" ;
                         exit();
                         }
                         
                   
                     }
-                    
-                    
-                    
-                    
-                    
+                                    
                    $prikaz="INSERT into Druh VALUES('Null',?,?,?,?,?,?,?,?)";
                    $vysledek=$databaze->prepare($prikaz);
                 	 $vysledek->bind_param("ssssssss",$nazev,$rad,$celed,$zacatek,$konec,$potrava,$navnada,$popis);
                 	 $vysledek->execute();
-                   
+                   echo "<br><div class=\"alert alert-success\">Druh byl úspěšně vložen.</div><br>";
                   
                    }  
            
                
          else{
-           echo("nezadal jste některý z údajů");
+           echo"<br> <div class='alert alert-danger'>Nezadal jste některý z údajů</div><br>";
          } 
          }
-     } 
-  if($_SESSION["login"]==false){
-    echo "Nejste přihlášený";
-    exit();
-    }
-   
-   ///var_dump()
+ 
+ 

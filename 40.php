@@ -4,17 +4,20 @@
 
  echo "<div class=row>";
  
- if($_SESSION['login']==false){
-     echo "<div class=col-md-5>"; 
-      echo "Nejste přihlášený";
-      exit();
-    }
-    // id je id radku v tabulce k editaci
+  if ($_SESSION['login']== false)
+ {
+  echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci se stránkami musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;
+  
+ }
+
   if (isset($_GET["id"]))
       $id = $_GET["id"];
   else
   {
-    echo "chybné volání stránky bez id";
+     echo "<div class=\"alert alert-danger\">chybné volání stránky bez id </div>";
     exit;  
    }
   

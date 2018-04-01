@@ -5,28 +5,21 @@
   <meta name="generator" content="PSPad editor, www.pspad.com">
   <title></title>
  
-<!--
-Styl oddělený
--->
-<style>
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, td, th {
-    border: 1px solid black;
-    padding: 2px;
-}
-
-th {text-align: left;}
+ <style>
+        {include 'tabulka.css'}
 </style>
 </head>
 <body>
 
 <?php
 
-
+   require_once("MySQL.php"); 
+ echo "<div class=row>";
+        
+ echo "<div class=col-md-2 ></div>";  
+  echo "<div class=col-md-8 >";  
+  
+  
 if($_SESSION['pravo']<3 OR $_SESSION['login']==FALSE){  
    echo "<div class=\"alert alert-danger\">";
   echo "Pro práci s uživateli musíte být přihlášen. Přihlaste se prosím";
@@ -48,7 +41,7 @@ if (isset($_REQUEST['idd']) and isset($_REQUEST['smazej']))
                       
                
                     if (mysqli_query($databaze, $sql)) {
-                                 echo "Váš uživatel byl úspěšně smazán";
+                                 echo "<br><div class=\"alert alert-success\">Uživatel byl úspěšně smazán</div><br>";
                       } else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($databaze);
                       } 
@@ -65,7 +58,7 @@ if (isset($_REQUEST["id"]))
 }
 else
 {
-   require_once("MySQL.php"); 
+
   
   if (isset($_REQUEST['id1'])){
          if($_REQUEST['jmeno'] <> "" and  $_REQUEST['pravo'] <> "" and  $_REQUEST['blokace'] <> ""){       
@@ -95,7 +88,7 @@ else
   
                
          else{
-           echo("nezadal jste některý z údajů");
+           echo"<br> <div class='alert alert-danger'>Nezadal jste některý z údajů </div><br>" ;
          } 
          }
  
@@ -105,6 +98,8 @@ else
     $sql="SELECT * from Uzivatel ";
   $tabulka=$databaze->query($sql);   
   
+  
+echo "<h2 style=text-align:center;>Uživatelé</h2><br>";  
 echo "<table class=\"table table-bordered\">";
 echo " <thead>";
 echo "<tr>";
@@ -123,9 +118,10 @@ while($row=$tabulka->fetch_object()) {
      echo $row->idUzivatel; 
     echo "</a>"; 
     echo "</td>";    
-    echo "<td>" . htmlspecialchars($row->jmeno) . "</td>";
-    echo "<td>" . htmlspecialchars($row->pravo) . "</td>";
-      echo "<td>" . htmlspecialchars($row->blokace) . "</td>";
+    echo "<td>" . $row->jmeno . "</td>";
+    echo "<td>" . $row->pravo . "</td>";
+      echo "<td>" .$row->blokace . "</td>";
+	  
      echo "</tr>";
 
 }
@@ -142,8 +138,8 @@ while($row=$tabulka->fetch_object()) {
   
 
 //mysqli_close($databaze);
-
-
+  echo "</div>";   
+  echo "</div>";
 ?>
 </body>
 </html>

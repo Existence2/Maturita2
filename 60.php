@@ -3,11 +3,14 @@
 
  echo "<div class=row>";
  
-  if($_SESSION['login']==false){
-     echo "<div class=col-md-5>"; 
-      echo "Nejste přihlášený";
-      exit();
-    }
+ if ($_SESSION['login']== false)
+ {
+  echo "<div class=\"alert alert-danger\">";
+  echo "Pro práci s úlovky musíte být přihlášen. Přihlaste se prosím";
+  echo "</div>";
+  exit;
+  
+ }
   
   if (isset($_REQUEST["id"]))
       $id = $_REQUEST["id"];
@@ -100,7 +103,7 @@ require_once("MySQL.php");
   echo" </div>  ";
  echo" <div class=\"form-group\"> ";
  echo"   <label for=\"vaha\">Zadejte váhu vašeho úlovku v kg (dvě desetinná místa) </label>  ";
- echo"   <input type=\"number\" class=\"form-control\" name=\"vaha\" id=\"vaha\" value=\"" .$radek['vaha'] ."\">  ";
+ echo"   <input type=\"number\" step=\"0.01\" class=\"form-control\" name=\"vaha\" id=\"vaha\" value=\"" .$radek['vaha'] ."\">  ";
  echo" </div>    ";
   echo" <div class=\"form-group\"> ";
  echo"   <label for=\"datum\">Zadejte datum vašeho úlovku</label>  ";
@@ -123,7 +126,9 @@ $prikaz = "SELECT idDruh, nazev  FROM Druh ";
 $tabulka=$databaze->query($prikaz); 
  if ($tabulka->num_rows==0)
    {  
-   echo "Je nutné vložit do sytému aspon 1 druh ryby";
+      echo "<div class=\"alert alert-danger\">";
+      echo "Je nutné vložit do systému alespoň 1 druh ryb";
+      echo "</div>";
    exit();}
     
     
@@ -159,7 +164,9 @@ $tabulka=$databaze->query($prikaz);
  $tabulka=$databaze->query($prikaz); 
  if ($tabulka->num_rows==0)
    {  
-   echo "Je nutné vložit do sytému aspoň 1 druh ryby";
+   echo "<div class=\"alert alert-danger\">";
+      echo "Je nutné vložit do systému alespoň 1 revír";
+      echo "</div>";
    exit();}
  
     
